@@ -6,7 +6,7 @@ import time
 
 
 def main():
-    name = input("\nOh mighty wizard, what's your grand name?")
+    name = input("\nOh mighty wizard, what's your grand name? ")
     print_header()
     game_loop(name)
 
@@ -31,27 +31,13 @@ def game_loop(name):
     #  TODO add MP and tricks;
     #  TODO expand, automate and randomize types, levels etc
     creatures = [
-        Creature('Toad', 1, random.randint(1, 10)),
-        Creature('Toad', 2, random.randint(1, 10)),
-        Creature('Toad', 3, random.randint(2, 10)),
-        Creature('Spider', 2, random.randint(1, 10)),
-        Creature('Spider', 4, random.randint(1, 10)),
-        Creature('Spider', 6, random.randint(1, 10)),
-        Creature('Snake', 3, random.randint(1, 10)),
-        Creature('Snake', 6, random.randint(1, 10)),
-        Creature('Snake', 9, random.randint(1, 10)),
-        Creature('Bat', 3, random.randint(1, 10)),
-        Creature('Bat', 4, random.randint(1, 10)),
-        Creature('Bat', 5, random.randint(1, 10)),
-        Creature('Tiger', 10, random.randint(1, 10)),
-        Creature('Tiger', 15, random.randint(1, 10)),
-        Creature('Tiger', 20, random.randint(1, 10)),
-        Creature('Dragon', 30, random.randint(1, 10)),
-        Creature('Dragon', 35, random.randint(1, 10)),
-        Creature('Dragon', 40, random.randint(1, 10)),
-        Creature('Evil Wizard', 50, random.randint(1, 10)),
-        Creature('Evil Wizard', 60, random.randint(1, 10)),
-        Creature('Evil Wizard', 70, random.randint(1, 10)),
+        Creature('Toad', random.randint(1, 3), random.randint(1, 10)),
+        Creature('Spider', 2 * random.randint(1, 3), random.randint(1, 10)),
+        Creature('Snake', 3 * random.randint(1, 3), random.randint(1, 10)),
+        Creature('Bat', 2 + random.randint(1, 3), random.randint(1, 10)),
+        Creature('Tiger', 10 + random.randint(1, 10), random.randint(1, 10)),
+        Creature('Dragon', 30 + random.randint(1, 10), random.randint(1, 10)),
+        Creature('Evil Wizard', 50 + random.randint(1, 10), random.randint(1, 10)),
         Creature('Fairy', None, None)  # increases your luck points
     ]
 
@@ -72,6 +58,9 @@ def game_loop(name):
             print('''\n"Hello, dear {}, I'm your Luck Fairy. 
                      Be careful in your path! Here you receive my blessing!"\n
                   '''.format(name))
+            if hero.luck < 10:
+                if random.random() < 0.6:
+                    hero.luck += 1
             print("Your luck has increased! Now it is {}.".format(hero.luck))
             input("Press enter to continue...")
         else:
@@ -81,7 +70,7 @@ def game_loop(name):
             print()
             print("Your stats are: level {}, xp {}, luck {}".format(
                 hero.level, hero.xp, hero.luck))
-            cmd = input("Do you [a]ttack or [r]unaway?").lower()
+            cmd = input("Do you [a]ttack or [r]unaway? ").lower()
 
             # hero.level = 100
             if cmd == 'a':
@@ -106,8 +95,10 @@ def game_loop(name):
                 # TODO more consequences ...
                 input("Press enter to continue...")
             else:
-                print('OK, exiting game.')
-                break
+                cmd = input('Do you really wnat exit the game? (y/n): ')
+                if cmd == 'y':
+                    print('OK, exiting game.')
+                    break
 
 
 if __name__ == '__main__':
